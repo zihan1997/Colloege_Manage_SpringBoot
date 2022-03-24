@@ -1,9 +1,14 @@
 package com.example.demo.student;
 
 
+import com.example.demo.book.Book;
+import com.example.demo.idcard.StudentIdCard;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(
         name = "student",
@@ -57,11 +62,19 @@ public class Student {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-//    @OneToMany(
-//            mappedBy = "student",
-//            orphanRemoval = true,
-//            cascade = {CascadeType.PERSIST}
-//    )
+    @OneToMany(
+            mappedBy = "student",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private List<Book> books = new ArrayList<>();
+
+    @OneToOne(
+            mappedBy = "student",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private StudentIdCard studentIdCard;
 
     public Student() {
 
@@ -142,5 +155,26 @@ public class Student {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public List<Book> getBooks(){
+        return books;
+    }
+    public void addBook(Book book){
+        books.add(book);
+    }
+    public void removeBook(Book book){
+        if(books.contains(book)) {
+            books.remove(book);
+            book.setStudent(null);
+        }
+    }
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
     }
 }

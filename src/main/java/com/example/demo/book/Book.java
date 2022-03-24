@@ -5,7 +5,7 @@ import com.example.demo.student.Student;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name = "table")
+@Table(name = "book")
 @Entity(name = "Book")
 public class Book {
 
@@ -49,15 +49,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(Student student, String bookName, LocalDateTime createAt) {
-        this.student = student;
+    public Book(String bookName, LocalDateTime createAt) {
         this.bookName = bookName;
         this.createAt = createAt;
     }
 
-    public Book(Long id, Student student, String bookName, LocalDateTime createAt) {
+    public Book(Long id, String bookName, LocalDateTime createAt) {
         this.id = id;
-        this.student = student;
         this.bookName = bookName;
         this.createAt = createAt;
     }

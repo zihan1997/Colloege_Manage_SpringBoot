@@ -15,17 +15,15 @@ public class StudentConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(StudentRepo repo){
-        return args -> {
-            generateStudents(repo);
-        };
-    };
+        return args -> generateStudents(repo);
+    }
 
     private void generateStudents(StudentRepo repo){
         Faker fake = new Faker();
         for(int i = 0; i < 20; i++){
             String firstName = fake.name().firstName();
             String lastName = fake.name().lastName();
-            String email = String.format("%s.%s@gmai.com", firstName, lastName);
+            String email = String.format("%s.%s@gmail.com", firstName, lastName);
 
             Date input = fake.date().birthday();
             LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
