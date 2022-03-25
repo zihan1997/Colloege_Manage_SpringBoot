@@ -1,6 +1,7 @@
 package com.example.demo.idcard;
 
 import com.example.demo.student.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -45,8 +46,9 @@ public class StudentIdCard {
     public StudentIdCard() {
     }
 
-    public StudentIdCard(Long studentId, String cardNumber) {
+    public StudentIdCard(String cardNumber, Student student) {
         this.cardNumber = cardNumber;
+        this.student = student;
     }
 
     public StudentIdCard(Long id, Long studentId, String cardNumber) {

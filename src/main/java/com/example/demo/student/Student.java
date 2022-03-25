@@ -3,6 +3,7 @@ package com.example.demo.student;
 
 import com.example.demo.book.Book;
 import com.example.demo.idcard.StudentIdCard;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -65,7 +66,8 @@ public class Student {
     @OneToMany(
             mappedBy = "student",
             orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
     )
     private List<Book> books = new ArrayList<>();
 
@@ -158,10 +160,13 @@ public class Student {
     }
 
     public List<Book> getBooks(){
-        return books;
+        return this.books;
     }
     public void addBook(Book book){
-        books.add(book);
+        if(!books.contains(book)) {
+            this.books.add(book);
+            book.setStudent(this);
+        }
     }
     public void removeBook(Book book){
         if(books.contains(book)) {

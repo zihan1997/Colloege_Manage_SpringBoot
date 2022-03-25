@@ -1,14 +1,16 @@
 package com.example.demo.student;
 
+import com.example.demo.book.Book;
+import com.example.demo.idcard.StudentIdCard;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 
 @Configuration
 public class StudentConfig {
@@ -34,6 +36,21 @@ public class StudentConfig {
                     email,
                     date
             );
+            StudentIdCard studentIdCard = new StudentIdCard(
+                    fake.number().digits(10),
+                    student
+            );
+            student.setStudentIdCard(studentIdCard);
+
+            student.addBook(new Book(
+                    fake.book().title(),
+                    LocalDateTime.now().minusYears(1)
+            ));
+        student.addBook(new Book(
+                fake.book().title(),
+                LocalDateTime.now().minusYears(3)
+        ));
+
             repo.save(student);
         }
     }

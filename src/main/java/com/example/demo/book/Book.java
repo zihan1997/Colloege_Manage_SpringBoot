@@ -1,6 +1,7 @@
 package com.example.demo.book;
 
 import com.example.demo.student.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class Book {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "id",
