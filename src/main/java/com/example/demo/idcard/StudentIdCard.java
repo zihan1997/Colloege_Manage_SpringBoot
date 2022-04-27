@@ -34,6 +34,7 @@ public class StudentIdCard {
 
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "id",
